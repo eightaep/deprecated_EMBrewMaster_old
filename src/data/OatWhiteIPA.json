@@ -1,0 +1,66 @@
+{
+    "date": "09/25/2016",
+    "begin": "12:00:00",
+    "attendees": [
+        { "name": "Eike" }, { "name": "Micha" }
+    ],
+    "brews": [
+        {
+            "recipe": 
+            { 
+                "name": "Oat White IPA",
+                "URL": "http://maischemalzundmehr.de/index.php?id=607&inhaltmitte=recipe",
+                "grains": [
+                    { "name": "Weizenmalz", "quantity": 1960 },
+                    { "name": "Pilsnermalz", "quantity": 1960 },
+                    { "name": "Hafermalz", "quantity": 780 },
+                    { "name": "Sauermalz", "quantity": 78 } 
+                ],
+                "hops": [
+                    { "name": "Athanum", "destination": "Vorderwürze", "quantity": 10 },
+                    { "name": "Herkules", "quantity": 16 },
+                    { "name": "Athanum", "destination": "knockout", "quantity": 40 },
+                    { "name": "Yellow Sub", "destination": "knockout", "quantity": 40 }
+                ],
+                "yeasts": [
+                    { "name": "Gozdawa Bavarian Wheat 11" }                
+                ],
+                "rests": [
+                    { "no": 0, "name": "Mash", "temperature": 45 },
+                    { "no": 1, "name": "First Rest", "temperature": 63, "time": 3000 },
+                    { "no": 2, "name": "Second Rest", "temperature": 72, "time": 1200 },
+                    { "no": 3, "name": "Sparge", "temperature": 78 }
+                ],
+                "ingredients": [
+                    { "name": "Orange Peel", "quantity": 15, "time": 600 }
+                ]
+            },
+            "process": {
+                "begin": "12:00:00",
+                "end": "",
+                "steps": {
+                    "heating": { 
+                        "state": "not started",
+                        "begin": "",
+                        "end": ""
+                    },
+                    "mashing": { 
+                        "state": "not started"
+                    },
+                    "lautering": { 
+                        "state": "not started"
+                    },
+                    "boiling": { 
+                        "state": "not started"
+                    },
+                    "cooling": { 
+                        "state": "not started"
+                    },
+                    "yeast": { 
+                        "state": "not started"
+                    }
+                }
+            }
+        }
+    ] 
+}
