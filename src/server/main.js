@@ -1,11 +1,29 @@
 var express = require('express');
 var app = express();
-var fs = require("fs");
+var fs = require('fs');
+
+var MongoClient = require('mongodb').MongoClient;
+var assert = require('assert');
+var ObjectId = require('mongodb').ObjectID;
+var url = 'mongodb://localhost:27017/EMBC_test';
 
 var port = 2437;
 
 app.get('/', function (req, res) {
    res.end("test 2");
+})
+
+app.get('/brewdays', function (req, res) {
+    MongoClient.connect(url, function(err, db) {
+        assert.equal(null, err);
+
+        db.collection('brewDays').find().toArray(function(err, brewDaysResults) {
+            assert.equal(null, err);
+            res.end(JSON.stringify(brewDaysResults));    
+        });
+
+        db.close();
+    });
 })
 
 var server = app.listen(port, function () {
