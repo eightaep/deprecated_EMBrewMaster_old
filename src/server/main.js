@@ -5,9 +5,13 @@ var fs = require('fs');
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
-var url = 'mongodb://localhost:27017/EMBC_test';
+var url = 'mongodb://localhost:27017/EMBC';
+
+var mongoose = require('mongoose');
 
 var port = 2437;
+
+mongoose.connect('localhost:27017/EMBC_test');
 
 app.get('/', function (req, res) {
    res.end("test 2");

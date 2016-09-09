@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { HTTP_PROVIDERS } from '@angular/http';
+
 import { BrewdayComponent } from './brewday/brewday';
 import { BrewdayService } from './brewday/brewday';
 
@@ -8,15 +10,24 @@ import { BrewdayService } from './brewday/brewday';
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
   directives: [BrewdayComponent],
-  providers: [BrewdayService]
+  providers: [BrewdayService, HTTP_PROVIDERS]
 })
 export class AppComponent {
   title = 'app works fine!';
-  brewdays = [];
-  
+  brewdays: BrewdayComponent[] = [];
+  errorMessage: string = '';
+
   constructor(private brewdayService: BrewdayService) {
-    this.brewdays = brewdayService.getBrewdays();
+    
   }
   
+  ngOnInit(){
+    this.brewdayService.getBrewdays()
+      .subscribe(
+         /* happy path */ bds => this.brewdays = bds,
+         /* error path */ e => this.errorMessage = e);
+
+    console.log(this.brewdays);
+  }
 
 }

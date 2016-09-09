@@ -1,5 +1,7 @@
 import { Component } from '@angular/core'
 import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
 
 import { BrewComponent } from './brew'
 
@@ -9,6 +11,7 @@ import { BrewComponent } from './brew'
     directives: [BrewComponent]
 })
 export class BrewdayComponent {
+    id;
     date: string;
     begin: string;
     attendees: string[];
@@ -18,16 +21,31 @@ export class BrewdayComponent {
 
 @Injectable()
 export class BrewdayService {
-    getBrewdays(): BrewdayComponent[] {
-        var bd = new BrewdayComponent();
-        bd.attendees = ["Eike", "Micha"];
-        bd.begin = Date.now().toLocaleString();
-        bd.date = Date.now().toLocaleString();
+    private baseurl:string = "http://localhost:2437/brewdays";
 
-        var br = new BrewComponent();
-        br.no = 1;
-        bd.brews = [br];
+    constructor(private http: Http) { }
 
-        return [bd];
+    getBrewdays(): Observable<BrewdayComponent[]> {
+        let brewDays$ = this.http.get(this.baseurl).map(mapBrewDay);
+        return brewDays$;        
     }
+}
+
+
+function mapBrewDay(response:Response): BrewdayComponent[]{
+   // The response of the API has a results
+   // property with the actual results
+   return response.json().results.map(toBrewDay)
+}
+
+function toBrewDay(r:any): BrewdayComponent{
+  let brewDay = <BrewdayComponent>({
+    id: r._id,
+    date: r.date,
+    begin: r.begin,
+    attendees: r.attendees,
+    brews: r.brews    
+  });
+  console.log('Parsed brewday:', brewDay);
+  return brewDay;
 }

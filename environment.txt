@@ -1,0 +1,5 @@
+# npm packages
+npm install nodejs
+npm install mongoose
+npm install mongoose-unique-identifier
+npm install typescript
