@@ -1,19 +1,28 @@
-<h1>{{title}}</h1>
-<ul>
-    <li *ngFor="#brewday of brewdays">
-        date = {{ brewday.date }} <br>
-        begin = {{ brewday.begin }} <br>
+<div class="jumbotron">
+    <h1>{{title}}</h1>
+</div>
 
-    <ul>
-        <li *ngFor="#attendee of brewday.attendees">
-            {{ attendee }}
-        </li>
-    </ul>
-
-    <ul>
-        <li *ngFor="#brew of brewday.brews">
-            {{ brew.no }} <br>
-
-
-  </li>
-</ul>
+<div class="panel panel-default">
+    <div class="panel-heading">Brewdays</div>
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let brewday of brewdays">
+                    <td>{{brewday.date}}</td>
+                    <td><button type="button" class="btn btn-danger" (click)="onDeleteBrewday(brewday)"><span class="glyphicon glyphicon-minus" aria-hidden="true" aria-label="New"></span></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer">
+        <button type="button" class="btn btn-sucess" (click)="showNewBrewday=!showNewBrewday"><span class="glyphicon glyphicon-plus" aria-hidden="true" aria-label="New"></span></button>
+        <div *ngIf="showNewBrewday">
+            <newbrewday (onCreated)="onNewBrewday($event,bd)"></newbrewday>
+        </div>
+    </div>
+</div>

@@ -1,33 +1,54 @@
-import { Component } from '@angular/core';
-import { HTTP_PROVIDERS } from '@angular/http';
+import { Component, OnInit, ElementRef, ViewChild, Renderer } from '@angular/core';
+//import { HTTP_PROVIDERS } from '@angular/http';
 
-import { BrewdayComponent } from './brewday/brewday';
-import { BrewdayService } from './brewday/brewday';
+import { BrewdayComponent } from './brewday/brewday.component';
+import { BrewdayService } from './brewday/brewday.service';
+import { Brewday } from './brewday/brewday.model';
+import { NewBrewdayComponent } from './brewday/newbrewday.component';
 
 @Component({
   moduleId: module.id,
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
-  directives: [BrewdayComponent],
-  providers: [BrewdayService, HTTP_PROVIDERS]
+  directives: [BrewdayComponent, NewBrewdayComponent],
+  providers: [BrewdayService]
 })
-export class AppComponent {
-  title = 'app works fine!';
-  brewdays: BrewdayComponent[] = [];
-  errorMessage: string = '';
+export class AppComponent implements OnInit {
+  title: string = "EM Brewery Control";
+  brewdays: Brewday[];
+  newBrewdayExpanded:boolean = true;
+  showNewBrewday:boolean;
 
-  constructor(private brewdayService: BrewdayService) {
-    
+  constructor(private brewdayService: BrewdayService) {  }
+
+  ngOnInit() {
+    this.loadBrewDays();
+    this.showNewBrewday = false;
   }
-  
-  ngOnInit(){
-    this.brewdayService.getBrewdays()
+
+  private loadBrewDays() {
+    this.brewdayService.getBrewdaysOverview()
       .subscribe(
-         /* happy path */ bds => this.brewdays = bds,
-         /* error path */ e => this.errorMessage = e);
-
-    console.log(this.brewdays);
+      brewdays => this.brewdays = brewdays,
+      error => console.error(error)
+      );
   }
 
+  onNewBrewday(created: boolean) {
+    if(created) {
+       this.loadBrewDays(); 
+       this.loadBrewDays(); 
+    }
+    this.showNewBrewday = false;    
+  }
+
+  onDeleteBrewday(brewday2delete: Brewday) {
+    console.log("Delete " + JSON.stringify(brewday2delete));
+    this.brewdayService.deleteBrewday(brewday2delete).subscribe(
+      
+      error => console.log(error));
+    this.loadBrewDays(); 
+    this.loadBrewDays();   
+  }
 }

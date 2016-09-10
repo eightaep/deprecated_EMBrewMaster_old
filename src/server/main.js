@@ -1,6 +1,9 @@
 var express = require('express');
-var app = express();
+var path = require('path');
 var fs = require('fs');
+var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
+var cors = require('cors');
 
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
@@ -11,23 +14,28 @@ var mongoose = require('mongoose');
 
 var port = 2437;
 
-mongoose.connect('localhost:27017/EMBC_test');
+var brewdaysRoute = require('./routes/brewdayRoutes');
+
+var app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
+app.options('*', cors());
+
+app.use('/brewdays', brewdaysRoute);
+
+mongoose.connect('localhost:27017/EMBC');
+
+app.all('/*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
 
 app.get('/', function (req, res) {
-   res.end("test 2");
-})
-
-app.get('/brewdays', function (req, res) {
-    MongoClient.connect(url, function(err, db) {
-        assert.equal(null, err);
-
-        db.collection('brewDays').find().toArray(function(err, brewDaysResults) {
-            assert.equal(null, err);
-            res.end(JSON.stringify(brewDaysResults));    
-        });
-
-        db.close();
-    });
+   res.end("EM Brewery Control is running");
 })
 
 var server = app.listen(port, function () {

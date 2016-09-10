@@ -2,12 +2,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var schema = new Schema({
-    date: {type: string, required: true, unique: true},
+    date: {type: String, required: true /*, unique: true*/}/*,
     begin: {type: string},
     attendees: [{type: Schema.Types.ObjectID, ref: 'Attendees' }],
-    brews: [{type: Schema.Types.ObjectID, ref: 'Brew' }]
+    brews: [{type: Schema.Types.ObjectID, ref: 'Brew' }]*/
 });
 
-schema.plugin(mongooseuniquevalidator);
+//schema.plugin(mongooseuniquevalidator);
 
-module.exports = mongoose.model('BrewDay', schema);
+module.exports = mongoose.model('Brewday', schema);
