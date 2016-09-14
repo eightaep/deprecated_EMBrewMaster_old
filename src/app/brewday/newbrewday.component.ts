@@ -18,7 +18,7 @@ import { Brewday } from './brewday.model'
 export class NewBrewdayComponent implements OnInit {
     public newbrewday:Brewday;
 
-    @Output() onCreated = new EventEmitter<boolean>();
+    @Output() onCreated = new EventEmitter<Brewday>();
 
     constructor(private brewdayService: BrewdayService) {
     }
@@ -31,18 +31,21 @@ export class NewBrewdayComponent implements OnInit {
         console.log(this.newbrewday);
 
         this.brewdayService.saveBrewday(this.newbrewday).subscribe(
-            () => console.log("Success"),
+            newBrewDay => {
+                console.log("\nBrewday created:");
+                console.log(newBrewDay);
+                this.onCreated.emit(newBrewDay);
+            },
             error => console.log(error)
         );
 
         event.preventDefault();
 
         this.newbrewday = new Brewday("", "xx.xx.xxxx");
-        this.onCreated.emit(true);
     }
 
     onCancel() {
         this.newbrewday = new Brewday("", "xx.xx.xxxx");
-        this.onCreated.emit(false);
+        this.onCreated.emit(null);
     }
 }

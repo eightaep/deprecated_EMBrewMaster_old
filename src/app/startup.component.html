@@ -1,0 +1,106 @@
+<!-- navbar -->
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Brand</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><button type="menu" class="btn-navbar navbar-btn" (click)="brewdaysSel=true;brewersSel=false;recipesSel=false;">Brewdays</button></li>
+        <li><button type="menu" class="btn-navbar navbar-btn" (click)="brewdaysSel=false;brewersSel=true;recipesSel=false;">Brewers</button></li>
+        <li><button type="menu" class="btn-navbar navbar-btn" (click)="brewdaysSel=false;brewersSel=false;recipesSel=true;">Recipes</button></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+<!-- brewdays -->
+<div class="panel panel-default" id="brewdaysPanel" *ngIf="brewdaysSel">
+    <div class="panel-heading">Brewdays</div>
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let brewday of brewdays">
+                    <td><button type="button" class="btn btn-success">Open</button></td>
+                    <td>{{brewday.date}}</td>
+                    <td><button type="button" class="btn btn-danger" (click)="onDeleteBrewday(brewday)"><span class="glyphicon glyphicon-minus" aria-hidden="true" aria-label="New"></span></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer">
+        <button type="button" class="btn btn-success" (click)="showNewBrewday=!showNewBrewday"><span class="glyphicon glyphicon-plus" aria-hidden="true" aria-label="New"></span></button>
+        <div *ngIf="showNewBrewday">
+            <newbrewday (onCreated)="onNewBrewday($event,bd)"></newbrewday>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<!-- brewers -->
+<div class="panel panel-default" id="brewersPanel" *ngIf="brewersSel">
+    <div class="panel-heading">Brewers</div>
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nickname</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let person of persons">
+                    <td><button type="button" class="btn btn-success">Edit</button></td>
+                    <td>{{person.nickname}}</td>
+                    <td><button type="button" class="btn btn-danger" (click)="onDeletePerson(person)"><span class="glyphicon glyphicon-minus" aria-hidden="true" aria-label="New"></span></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer">
+        <button type="button" class="btn btn-success" (click)="showNewPerson=!showNewPerson"><span class="glyphicon glyphicon-plus" aria-hidden="true" aria-label="New"></span></button>
+        
+    </div>
+</div>
+
+<hr> 
+
+<!-- Recipes -->
+<div class="panel panel-default" id="recipesPanel" *ngIf="recipesSel">
+    <div class="panel-heading">Recipes</div>
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let recipe of recipes">
+                    <td><button type="button" class="btn btn-success">Edit</button></td>
+                    <td>{{recipe.name}}</td>
+                    <td><button type="button" class="btn btn-danger" (click)="onDeleteRecipe(recipe)"><span class="glyphicon glyphicon-minus" aria-hidden="true" aria-label="New"></span></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer">
+        <button type="button" class="btn btn-success" (click)="showNewRecipe=!showNewRecipe"><span class="glyphicon glyphicon-plus" aria-hidden="true" aria-label="New"></span></button>
+
+    </div>
+</div>

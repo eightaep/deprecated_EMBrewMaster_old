@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var Brewday = require('../models/brewday');
+var Person = require('../models/person');
 
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
@@ -11,10 +11,12 @@ var url = 'mongodb://localhost:27017/EMBC';
 var mongoose = require('mongoose');
 
 router.post('/', function(req, res, next) {
-    var brewday = new Brewday({
-        date: req.body.date
+    var person = new Person({
+        nickname: req.body.nickname,
+        adress: req.body.adress,
+        brewdays: []
     });
-    brewday.save(function(err, result) {
+    person.save(function(err, result) {
         if(err) {
             console.log(err);
             return res.status(500).json({
@@ -23,7 +25,7 @@ router.post('/', function(req, res, next) {
             });
         }
 
-        console.log("Brewday created");
+        console.log("Person created");
         console.log(result + "\n");
         res.status(201).json({
             data: result
@@ -32,45 +34,45 @@ router.post('/', function(req, res, next) {
 });
 
 router.get('/', function (req, res) {
-    Brewday.find(function(err, brewdays) {
+    Person.find(function(err, persons) {
         if(err) {
             console.log(err);
             return res.status(500).json({
-                title: 'Error fetching brewdays',
+                title: 'Error fetching persons',
                 error: err
             });
         }
 
-        console.log(brewdays);
+        console.log("Persons found: \n" + persons + "\n");
         res.status(200).json({
-            data: brewdays
+            data: persons
         })
     });
 });
 
-router.get('/:brewdayID', function (req, res) {
-    var brewdayID = req.params.brewdayID;
+router.get('/:personID', function (req, res) {
+    var personID = req.params.personID;
 
-    Brewday.findOne({_id : new mongoose.mongo.ObjectID(brewdayID)}, function(err, brewday) {
+    Person.findOne({_id : new mongoose.mongo.ObjectID(personID)}, function(err, person) {
         if(err) {
             console.log(err);
             return res.status(500).json({
-                title: 'Error fetching brewdays',
+                title: 'Error fetching persons',
                 error: err
             });
         }
 
-        console.log(brewday);
+        console.log(person);
         res.status(200).json({
-            data: brewday
+            data: person
         })
     });
 });
 
-router.delete('/:brewdayID', function(req, res) {
-    var brewdayID = req.params.brewdayID;
+router.delete('/:personID', function(req, res) {
+    var personID = req.params.personID;
 
-    Brewday.findOneAndRemove({_id : new mongoose.mongo.ObjectID(brewdayID)}, function (err,brewday){
+    Brewday.findOneAndRemove({_id : new mongoose.mongo.ObjectID(personID)}, function (err,person){
         if(err) {
             console.log(err);
             return res.status(500).json({
@@ -79,9 +81,9 @@ router.delete('/:brewdayID', function(req, res) {
             });
         }
 
-        console.log("delete " + brewdayID)
+        console.log("deleted: " + personID + "\n")
         res.status(200).json({
-            data: brewdayID
+            data: personID
         });
     });
 });

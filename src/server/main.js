@@ -15,6 +15,7 @@ var mongoose = require('mongoose');
 var port = 2437;
 
 var brewdaysRoute = require('./routes/brewdayRoutes');
+var personsRoute = require('./routes/personRoutes');
 
 var app = express();
 app.use(bodyParser.json());
@@ -25,6 +26,7 @@ app.use(cors());
 app.options('*', cors());
 
 app.use('/brewdays', brewdaysRoute);
+app.use('/persons', personsRoute);
 
 mongoose.connect('localhost:27017/EMBC');
 
