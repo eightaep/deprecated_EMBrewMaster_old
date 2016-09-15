@@ -36,7 +36,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let brewday of brewdays">
-                    <td><button type="button" class="btn btn-success">Open</button></td>
+                    <td><button type="button" class="btn btn-success" (click)="openBrewday(brewday._id)">Open</button></td>
                     <td>{{brewday.date}}</td>
                     <td><button type="button" class="btn btn-danger" (click)="onDeleteBrewday(brewday)"><span class="glyphicon glyphicon-minus" aria-hidden="true" aria-label="New"></span></button></td>
                 </tr>

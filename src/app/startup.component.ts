@@ -1,4 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild, Renderer } from '@angular/core';
+import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 
 import { BrewdayService } from './brewday/brewday.service';
 import { Brewday } from './brewday/brewday.model';
@@ -6,7 +7,7 @@ import { NewBrewdayComponent } from './brewday/newbrewday.component';
 
 @Component({
   templateUrl: './app/startup.component.html',
-  directives: [NewBrewdayComponent],
+  directives: [NewBrewdayComponent, ROUTER_DIRECTIVES],
   providers: [BrewdayService]
 })
 export class StartupComponent implements OnInit {
@@ -16,7 +17,7 @@ export class StartupComponent implements OnInit {
   showNewBrewday:boolean;
   brewdaysSel:boolean;
   
-  constructor(private brewdayService: BrewdayService) {  }
+  constructor(private brewdayService: BrewdayService, private router: Router) {  }
 
   ngOnInit() {
     this.loadBrewDays();
@@ -51,5 +52,10 @@ export class StartupComponent implements OnInit {
         }
       },
       error => console.log(error));   
+  }
+
+  openBrewday(_id: string) {
+    let brewdayURL:string = "/brewday?_id=" + _id;
+    this.router.navigateByUrl(brewdayURL);
   }
 }

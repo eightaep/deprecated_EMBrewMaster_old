@@ -86,4 +86,27 @@ router.delete('/:brewdayID', function(req, res) {
     });
 });
 
+router.get('/:brewdayID/brews', function (req, res) {
+    var brewdayID = req.params.brewdayID;
+
+/*res.status(200).body.json({
+            data: { _id: "aaa", recipeID = "bbb", processID: "ccc" }//, { _id: "ddd", recipeID = "eee", processID: "fff" }]
+        });
+/*    
+    Brewday.findOne({_id : new mongoose.mongo.ObjectID(brewdayID)}, function(err, brewday) {
+        if(err) {
+            console.log(err);
+            return res.status(500).json({
+                title: 'Error fetching brewdays',
+                error: err
+            });
+        }
+
+        console.log(brewday);
+        res.status(200).json({
+            data: [{ _id: "aaa", recipeID = "bbb", processID: "ccc" }, { _id: "ddd", recipeID = "eee", processID: "fff" }]
+        })
+    });*/
+});
+
 module.exports = router;

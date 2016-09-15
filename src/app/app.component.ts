@@ -1,6 +1,4 @@
 import { Component, OnInit, ElementRef, ViewChild, Renderer } from '@angular/core';
-
-// Import router directives
 import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 
 @Component({

@@ -1,27 +1,27 @@
 import { Component, OnInit } from '@angular/core'
 import { Observable } from 'rxjs/Rx';
-import { Router } from '@angular/router';
+import { Router, RouterLink, ROUTER_DIRECTIVES } from '@angular/router';
 
 //import { BrewComponent } from './brew'
 import { BrewdayService } from './brewday.service';
 import { Brewday } from './brewday.model';
+import { Brew } from './brew.model';
+import { BrewService } from './brew.service';
+
+import { JustGage } from '../lib/JustGage';
 
 @Component({
     selector: 'brewday',
-    template: `<h1>Brewday</h1>
-    <div *ngIf="brewday">
-    <h2>{{brewday._id}}</h2>
-    <h2>{{brewday.date}}</h2>
-    </div>
-    `,
-    //templateUrl: './app/brewday/brewday.component.html', 
-    providers: [BrewdayService]
+    templateUrl: './app/brewday/brewday.component.html', 
+    providers: [BrewdayService, BrewService],
+    directives: [ROUTER_DIRECTIVES]
 })
 export class BrewdayComponent implements OnInit {
     brewday: Brewday;
     date:string;
+    brews: Brew[] = [];
 
-    constructor(private brewdayService: BrewdayService, private router: Router) { }
+    constructor(private brewdayService: BrewdayService, private brewService: BrewService, private router: Router) { }
 
     ngOnInit() {
         let _id:string;
@@ -38,6 +38,20 @@ export class BrewdayComponent implements OnInit {
             brewday => this.brewday = brewday,
             error => console.log(error)
             );
+
+        this.brewService.getBrewsOfBrewday(_id)
+            .subscribe(
+            brews => this.brews = brews,
+            error => console.log(error)
+            );
+        
+        var g = new JustGage({
+            id: "gauge",
+            value: 67,
+            min: 0,
+            max: 100,
+            title: "Visitors"
+        });
     }
 
 }
