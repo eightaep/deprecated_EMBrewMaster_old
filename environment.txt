@@ -4,3 +4,5 @@ npm install mongoose
 npm install mongoose-unique-identifier
 npm install typescript
 npm install cors
+npm install ng2-charts --save
+npm install chart.js --save

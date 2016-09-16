@@ -2,7 +2,8 @@
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+        aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -14,23 +15,83 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Overview</a></li>
-            <li role="separator" class="divider"></li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Brews<span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                    <li *ngFor="let brew of brews"><a href="#">{{brew.recipeID}}</a></li>
-                </ul>
-            </li>
+        <li class="active"><a href="#">Overview</a></li>
+        <li role="separator" class="divider"></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Brews<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li *ngFor="let brew of brews"><a href="#">{{brew.recipeID}}</a></li>
+          </ul>
+        </li>
       </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.navbar-collapse -->
+  </div>
+  <!-- /.container-fluid -->
 </nav>
 
 <div class="container-fluid">
-    <div class="panel panel-default">
-        <div class="panel-heading">{{brews.length}}</div>
-        <div id="gauge" class="200x160px"></div>
-            
+  <div class="panel panel-default">
+    <div class="panel-heading">Dashboard</div>
+    <div class="panel panel-body">
+      <google_chart [data]="dashboardvalues" 
+                    [options]="{redFrom: 90, redTo: 100, yellowFrom:75, yellowTo: 90,minorTicks: 5, width:250, height:100}"
+                    [charttype]="'gauge'"></google_chart>
     </div>
+  </div>
 </div>
+
+<div class="container-fluid">
+  <div class="panel panel-default">
+    <div class="panel-heading">Brews</div>
+    <div class="panel panel-body">
+      <div *ngFor="let brew of brews">
+        <h1>{{brew.recipe.name}}</h1>
+        <table>
+          <tr>
+            <td>Phase</td>
+            <td>{{brew.activephase}}</td>
+          </tr>
+          <tr>
+            <td>State</td>
+            <td>{{brew.state}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!--<div class="container-fluid">
+  <div class="panel panel-default">
+    <div class="panel-heading">ChartJS</div>
+  <div class="panel panel-body">
+    <canvas id="myChart" width="400px" height="400px"></canvas>
+  </div>
+  </div>
+</div>-->
+
+<!--<table>
+        <tr>
+          <td><span class="badge state">Heating up</span>
+            <td>
+        </tr>
+        <tr>
+          <td><span class="badge state">Meshing</span></td>
+        </tr>
+        <tr>
+          <td><span class="badge state">Lautering</span></td>
+        </tr>
+        <tr>
+          <td><span class="badge state">Boiling</span></td>
+        </tr>
+        <tr>
+          <td><span class="badge state">Cooling</span></td>
+        </tr>
+        <tr>
+          <td><span class="badge state">Fermenting</span></td>
+        </tr>
+      </table>-->

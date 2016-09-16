@@ -18,7 +18,7 @@ export class BrewdayService {
                 const brewdays: Brewday[] = [];
                 let brewday;
                 for (let element of extracted.data) {
-                    brewday = new Brewday(element._id, element.date);
+                    brewday = new Brewday(element._id, element.date, []);
                     brewdays.push(brewday);
                 }
                 return brewdays;
@@ -30,7 +30,7 @@ export class BrewdayService {
             .map( (data: Response) => {
                 const extracted = data.json();
                 let element = extracted.data;
-                return new Brewday(element._id, element.date);
+                return new Brewday(element._id, element.date, []);
             });     
     }
 
@@ -42,7 +42,7 @@ export class BrewdayService {
                 const extracted = data.json();
                 console.log("Brewday saved:\n" + extracted + "\n");
                 let element = extracted.data;
-                return new Brewday(element._id, element.date);;
+                return new Brewday(element._id, element.date, []);;
             });
     }
 

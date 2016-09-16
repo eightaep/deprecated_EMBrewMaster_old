@@ -24,7 +24,7 @@ export class NewBrewdayComponent implements OnInit {
     }
 
     ngOnInit():any {
-        this.newbrewday = new Brewday("", "xx.xx.xxxx");
+        this.newbrewday = new Brewday("", "xx.xx.xxxx", []);
     }
 
     onSubmit() {
@@ -41,11 +41,11 @@ export class NewBrewdayComponent implements OnInit {
 
         event.preventDefault();
 
-        this.newbrewday = new Brewday("", "xx.xx.xxxx");
+        this.newbrewday = new Brewday("", "xx.xx.xxxx", []);
     }
 
     onCancel() {
-        this.newbrewday = new Brewday("", "xx.xx.xxxx");
+        this.newbrewday = new Brewday("", "xx.xx.xxxx", []);
         this.onCreated.emit(null);
     }
 }
