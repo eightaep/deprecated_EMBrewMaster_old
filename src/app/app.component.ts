@@ -1,22 +1,18 @@
-import { Component } from '@angular/core';
-import { BrewdayComponent } from './brewday/brewday';
-import { BrewdayService } from './brewday/brewday';
+import { Component, OnInit, ElementRef, ViewChild, Renderer } from '@angular/core';
+import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 
 @Component({
   moduleId: module.id,
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
-  directives: [BrewdayComponent],
-  providers: [BrewdayService]
+  directives: [ROUTER_DIRECTIVES]
 })
-export class AppComponent {
-  title = 'app works fine!';
-  brewdays = [];
+export class AppComponent implements OnInit {
   
-  constructor(private brewdayService: BrewdayService) {
-    this.brewdays = brewdayService.getBrewdays();
+  constructor() {  }
+
+  ngOnInit() {
   }
-  
 
 }
