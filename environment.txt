@@ -6,3 +6,8 @@ npm install typescript
 npm install cors
 npm install ng2-charts --save
 npm install chart.js --save
+npm install express
+npm install body-parser
+npm install mongodb
+npm install angular-cli
+npm install angular-http
