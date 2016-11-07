@@ -13,7 +13,7 @@ export class RecipeService {
 
     getRecipeByName(receipeName: string): Observable<any> {
         //return new Observable<Recipe>( new Recipe("a", "OatWhite", [], [], [], [], [], null));
-        return null;
+        
     }
 
     getAllRecipesNames(): Observable<any> {
